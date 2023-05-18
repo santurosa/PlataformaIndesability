@@ -23,7 +23,7 @@ function sesionStorage() {
     if (verificacion) {
         let usuarioBuscado = usuarios.find(ingreso => ingreso.usuario === verificacion);
         let nombre = usuarioBuscado.nombre;
-        logIn.innerHTML = `<button class="d-flex" type="buton" id="logIn">Hola, ${nombre}</button>`;
+        logIn.innerHTML = `<button class="d-flex" type="buton">Hola, ${nombre}</button>`;
     }
 };
 sesionStorage();
@@ -56,7 +56,7 @@ logIn.addEventListener("click", () => {
                         background: "blue",
                     }
                 }).showToast();
-                logIn.innerHTML = `<button class="btnBlanco d-flex" type="buton" id="logIn">Hola, ${nombre}</button>`
+                logIn.innerHTML = `<a class="btnBlanco d-flex" type="buton" id="logIn" href="html/perfil.html">Hola, ${nombre}</a>`
                 localStorage.setItem("usuario", usuario);
             }
             else {
@@ -114,6 +114,17 @@ buscar();
 
 /************************************** AGREGAR LUGAR ****************************************/
 
+// Datos agregados
+
+const nombreIngresado = document.getElementById("nombreIngresado");
+const categoriaIngresada = document.getElementById("categoriaIngresada");
+const calleIngresada = document.getElementById("calleIngresada");
+const alturaIngresada = document.getElementById("alturaIngresada");
+const descripcionIngresada = document.getElementById("descripcionIngresada");
+const imagenIngresada = document.getElementById("imagenIngresada");
+
+// Le damos dinamica a los botones
+
 btnMas = document.getElementById("btnMas");
 btnMas.addEventListener("click", () => {
     window.location.href = "html/agregar.html";
@@ -121,16 +132,35 @@ btnMas.addEventListener("click", () => {
 
 lugarIngresado = document.getElementById("lugarIngresado");
 lugarIngresado.addEventListener("click", () => {
-    agregarLugar();
+    if (lugares.find(ingresado => ingresado.nombre === nombreIngresado)) {
+        Swal.fire({
+            html: "El lugar que esta intentando cargar ya existe.",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "red",
+            showCancelButton: true,
+        })
+    } else {
+        agregarLugar();
+        Swal.fire({
+            html: "Se ha agregado correctamente a ${nombreIngresado} en la Plataforma.",
+            confirmButtonText: "Aceptar",
+            confirmButtonColor: "blue",
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "index.html";
+            };
+        });
+    };
 });
-
-// Datos agregados
-
-
 
 
 // Función
 
 function agregarLugar() {
+    if (isNaN(altura)) { altura = "S/N"; };
+    direccionIngresada = `${calleIngresada} N° ${alturaIngresada}`;
+    let lugar = new Lugar(nombreIngresado, categoriaIngresada, descripcionIngresada, imagenIngresada);
+    lugares.push(lugar);
 
-}
+};
