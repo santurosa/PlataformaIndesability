@@ -23,9 +23,10 @@ function sesionStorage() {
     if (verificacion) {
         let usuarioBuscado = usuarios.find(ingreso => ingreso.usuario === verificacion);
         let nombre = usuarioBuscado.nombre;
-        logIn.innerHTML = `<button class="d-flex" type="buton">Hola, ${nombre}</button>`;
+        logIn.innerHTML = `<a id="logIn" class="d-flex" href="html/perfil.html">Hola, ${nombre}</a>`;
     }
 };
+
 sesionStorage();
 
 // Iniciar sección mediante el botón
@@ -87,80 +88,45 @@ const buscar = () => {
         let nombre = lugar.nombre.toLowerCase();
         if (nombre.indexOf(texto) !== -1) {
             resultados.innerHTML += `
-            <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="https://dummyimage.com/400x870/000/fff" class="img-fluid rounded-start" alt="${lugar.nombre}">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">${lugar.nombre}</h5>
-                  <p class="card-text"><small class="text-body-secondary">${lugar.categoria}</small></p>
-                  <p class="card-text">${lugar.accesibilidad}.</p>
-                  <button type="button" id="btnCalificar" class="btn btn-primary">Calificar</button>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="https://dummyimage.com/400x870/000/fff" class="img-fluid rounded-start" alt="${lugar.nombre}">
+                    </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${lugar.nombre}</h5>
+                        <p class="card-text"><small class="text-body-secondary">${lugar.categoria}</small></p>
+                        <p class="card-text">${lugar.accesibilidad}.</p>
+                        <div class="flex-d">
+                            <button type="button" id="verMas" class="btn btn-primary">Ver más</button>
+                            <button type="button" id="btnCalificar" class="btn btn-primary">Calificar</button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>`
+                </div>
+            </div>`
         }
     }
     if (resultados.innerHTML === '') {
-        resultados.innerHTML = `<p class="noEncontrado" >Producto no encontrado</p>`;
+        resultados.innerHTML = `<p class="noEncontrado">Lugar no encontrado</p>`;
     }
 }
 
 busqueda.addEventListener('keyup', buscar);
 buscar();
 
-/************************************** AGREGAR LUGAR ****************************************/
-
-// Datos agregados
-
-const nombreIngresado = document.getElementById("nombreIngresado");
-const categoriaIngresada = document.getElementById("categoriaIngresada");
-const calleIngresada = document.getElementById("calleIngresada");
-const alturaIngresada = document.getElementById("alturaIngresada");
-const descripcionIngresada = document.getElementById("descripcionIngresada");
-const imagenIngresada = document.getElementById("imagenIngresada");
-
-// Le damos dinamica a los botones
+/************************************** AGREGAR LUGAR ********************************************/
 
 btnMas = document.getElementById("btnMas");
 btnMas.addEventListener("click", () => {
     window.location.href = "html/agregar.html";
 });
 
-lugarIngresado = document.getElementById("lugarIngresado");
-lugarIngresado.addEventListener("click", () => {
-    if (lugares.find(ingresado => ingresado.nombre === nombreIngresado)) {
-        Swal.fire({
-            html: "El lugar que esta intentando cargar ya existe.",
-            confirmButtonText: "Aceptar",
-            confirmButtonColor: "red",
-            showCancelButton: true,
-        })
-    } else {
-        agregarLugar();
-        Swal.fire({
-            html: "Se ha agregado correctamente a ${nombreIngresado} en la Plataforma.",
-            confirmButtonText: "Aceptar",
-            confirmButtonColor: "blue",
-            showCancelButton: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "index.html";
-            };
-        });
-    };
-});
+/************************************** CALIFICAR LUGAR ********************************************/
 
+const btnCalificar = document.getElementById("btnCalificar");
 
-// Función
-
-function agregarLugar() {
-    if (isNaN(altura)) { altura = "S/N"; };
-    direccionIngresada = `${calleIngresada} N° ${alturaIngresada}`;
-    let lugar = new Lugar(nombreIngresado, categoriaIngresada, descripcionIngresada, imagenIngresada);
-    lugares.push(lugar);
-
-};
+btnCalificar.addEventListener("click", () => {
+    alert("funciona")
+})

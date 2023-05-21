@@ -53,7 +53,12 @@ main{
     margin-bottom: 3%;
 }
 
-/* BOTON PARA AGREGAR LUGAR*/
+#resultados{
+    height: 750px;
+    overflow-y: auto;
+}
+
+/* BOTON PARA AGREGAR LUGAR */
 
 #btnMas{
     position: fixed;
