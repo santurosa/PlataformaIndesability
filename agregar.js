@@ -20,8 +20,7 @@ lugarIngresado.addEventListener("click", () => {
             confirmButtonColor: "red",
             showCancelButton: true,
         })
-    } 
-    if (lugares.find(ingresado => ingresado.nombre === nombreIngresado)) {
+    } if (lugares.find(ingresado => ingresado.nombre === nombreIngresado)) {
         Swal.fire({
             html: "El lugar que esta intentando cargar ya existe.",
             confirmButtonText: "Aceptar",
@@ -32,7 +31,7 @@ lugarIngresado.addEventListener("click", () => {
     else {
         agregarLugar();
         Swal.fire({
-            html: "Se ha agregado correctamente a ${nombreIngresado} en la Plataforma.",
+            html: `Se ha agregado correctamente a ${nombreIngresado.value} en la Plataforma.`,
             confirmButtonText: "Aceptar",
             confirmButtonColor: "blue",
             showCancelButton: true,
@@ -47,8 +46,9 @@ lugarIngresado.addEventListener("click", () => {
 // Función
 
 function agregarLugar() {
-    if (isNaN(alturaIngresada)) { alturaIngresada = "S/N"; };
-    const direccionIngresada = `${calleIngresada} N° ${alturaIngresada}`;
-    let lugar = new Lugar(nombreIngresado, categoriaIngresada, direccionIngresada, descripcionIngresada, imagenIngresada);
+    if (alturaIngresada.value === "") { alturaIngresada = "S/N"; };
+    const direccionIngresada = `${calleIngresada.value} N° ${alturaIngresada.value}`;
+    let lugar = new Lugar(nombreIngresado.value, categoriaIngresada.value, direccionIngresada, descripcionIngresada.value, imagenIngresada.value);
     lugares.push(lugar);
-};
+    localStorage.setItem
+}
