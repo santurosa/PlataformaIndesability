@@ -32,8 +32,8 @@ sesionStorage();
 // Iniciar sección mediante el botón
 logIn.addEventListener("click", () => {
     Swal.fire({
-        html: `<img src="img/Logotipo web azul.png" alt="Logo  de Indesability">
-                <input type="text" id="usuario" class="swal2-input" placeholder="Usuario o correo eléctronico">
+        imageUrl: "img/Logotipo_web_azul.png",
+        html: ` <input type="text" id="usuario" class="swal2-input" placeholder="Usuario o correo eléctronico">
                 <input type="password" id="password" class="swal2-input" placeholder="Contraseña">`,
         confirmButtonText: "Iniciar sección",
         confirmButtonColor: "blue",
@@ -125,14 +125,15 @@ btnMas.addEventListener("click", () => {
 
 /************************************** CALIFICAR LUGAR ********************************************/
 
-const btnCalificar = document.getElementsByClassName("btnCalificar");
+const btnCalificar = document.querySelectorAll(".btnCalificar");
 
 const buscador = document.getElementById("buscador");
 
 const circulos = document.getElementsByClassName("circulo");
 
-btnCalificar.addEventListener("click", () => {
-    buscador.innerHTML = `
+btnCalificar.forEach((boton) => {
+    boton.addEventListener("click", () => {
+        buscador.innerHTML = `
                             <a href="index.html" class="volver"> <  Volver </a>
                             <p> Califica al lugar entre 1 y 5 puntos: </p>
                             <div id="calificacion">
@@ -149,36 +150,37 @@ btnCalificar.addEventListener("click", () => {
                             <button class="btn btn-primary text-center" id="calificacionIngresada">Enviar</button>
                         `
 
-    let puntosIngresados = 1;
+        let puntosIngresados = 1;
 
-    function calificar(index) {
-        puntosIngresados = index + 1;
-        for (let i = 0; i < circulos.length; i++) {
-            if (i <= index) {
-                circulos[i].classList.add("calificado");
-            } else {
-                circulos[i].classList.remove("calificado");
+        function calificar(index) {
+            puntosIngresados = index + 1;
+            for (let i = 0; i < circulos.length; i++) {
+                if (i <= index) {
+                    circulos[i].classList.add("calificado");
+                } else {
+                    circulos[i].classList.remove("calificado");
+                }
             }
         }
-    }
 
-    for (let i = 0; i < circulos.length; i++) {
-        circulos[i].addEventListener("click", (function (index) {
-            return function () {
-                calificar(index);
-            };
-        })(i));
-    }
+        for (let i = 0; i < circulos.length; i++) {
+            circulos[i].addEventListener("click", (function (index) {
+                return function () {
+                    calificar(index);
+                };
+            })(i));
+        }
 
-    const resenaIngresada = document.getElementById("resenaIngresada");
-    const calificacionIngresada = document.getElementById("calificacionIngresada");
+        const resenaIngresada = document.getElementById("resenaIngresada");
+        const calificacionIngresada = document.getElementById("calificacionIngresada");
 
-    calificacionIngresada.addEventListener("click", () => {
-        let usuario = localStorage.getItem("usuario");
-        let lugarIngresado = document.getElementById("lugarIngresado");
-        calificacion = new CalificacionLugar(usuario, lugarIngresado, puntosIngresados, resenaIngresada.value);
-        calificaciones.push(calificacion);
-        console.log(calificacion)
+        calificacionIngresada.addEventListener("click", () => {
+            let usuario = localStorage.getItem("usuario");
+            let lugarIngresado = document.getElementById("lugarIngresado");
+            calificacion = new CalificacionLugar(usuario, lugarIngresado, puntosIngresados, resenaIngresada.value);
+            calificaciones.push(calificacion);
+            console.log(calificacion)
+        })
     })
 })
 
