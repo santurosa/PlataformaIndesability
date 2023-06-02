@@ -16,6 +16,7 @@ usuarios.push(admin);
 /************************************* INICIAR SECCION ***************************************/
 
 const logIn = document.getElementById("logIn");
+const botonera = document.getElementById("botonera");
 
 // Iniciar sección mediante el LocalStorage
 function sesionStorage() {
@@ -23,7 +24,7 @@ function sesionStorage() {
     if (verificacion) {
         let usuarioBuscado = usuarios.find(ingreso => ingreso.usuario === verificacion);
         let nombre = usuarioBuscado.nombre;
-        logIn.innerHTML = `<a id="logIn" class="d-flex" href="html/perfil.html">Hola, ${nombre}</a>`;
+        logIn.innerHTML = `<a id="logIn" class="d-flex btnBlanco" href="html/perfil.html">Hola, ${nombre}</a>`;
     }
 };
 
@@ -57,7 +58,9 @@ logIn.addEventListener("click", () => {
                         background: "blue",
                     }
                 }).showToast();
-                logIn.innerHTML = `<a class="btnBlanco d-flex" type="buton" href="html/perfil.html">Hola, ${nombre}</a>`
+                botonera.innerHTML = `<a class="d-flex btnBlanco" type="buton" href="html/perfil.html">Hola, ${nombre}</a>
+                                      <button class="btnBlanco d-flex" type="buton" id="btnMas">Agragar lugar</button>
+                                      <button class="btnBlanco d-flex" type="buton" id="verRampas">Ver rampas</button>`
                 localStorage.setItem("usuario", usuario);
             }
             else {
@@ -80,7 +83,7 @@ logIn.addEventListener("click", () => {
 const resultados = document.getElementById("resultados");
 const busqueda = document.getElementById("busqueda");
 
-if(busqueda.value === ""){
+if (busqueda.value === "") {
     resultados.innerHTML = `<div class="busque">
                                 <div clas="lupa">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-search lupa" viewBox="0 0 16 16">
@@ -95,13 +98,10 @@ if(busqueda.value === ""){
 };
 
 function initMap() {
-
-
-    
     // Inicializar el servicio Places de Google Maps
     const placesService = new google.maps.places.PlacesService(document.createElement('div'));
-    let centro = sydney = new google.maps.LatLng(-34.618144, -58.390077);
-    const map = new google.maps.Map(document.getElementById('map'), {center: centro, zoom: 17});
+    let centro = new google.maps.LatLng(-34.618144, -58.390077);
+    const map = new google.maps.Map(document.getElementById('map'), { center: centro, zoom: 17 });
 
     const buscar = () => {
         resultados.innerHTML = '';
@@ -137,7 +137,7 @@ function initMap() {
                     let photoUrl = '';
                     if (place.photos && place.photos.length > 0) {
                         photoUrl = place.photos[0].getUrl();
-                    } else{photoUrl = "https://dummyimage.com/400x870/000/fff";}
+                    } else { photoUrl = "https://dummyimage.com/400x870/000/fff"; }
 
                     resultados.innerHTML += `
                                             <div class="card mb-3">
@@ -150,8 +150,8 @@ function initMap() {
                                                     <div class="col-md-8">
                                                         <div class="card-body">
                                                             <h5 class="card-title">${place.name}</h5>
-                                                            <p class="card-text">${place.types[0]}</p>
-                                                            <p class="card-text">${place.formatted_address}</p>
+                                                            <p class="card-text categoria">${place.types[0]}</p>
+                                                            <p class="card-text direccion">${place.formatted_address}</p>
                                                             <div class="flex-d">
                                                                 <button type="button" class="btn btn-primary">Ver más</button>
                                                                 <button type="button" class="btn btn-primary btnCalificar">Calificar</button>
@@ -160,7 +160,27 @@ function initMap() {
                                                     </div>
                                                 </div>
                                             </div>`;
-                }
+
+                    const verMas = document.querySelectorAll(".verMas");
+                    verMas.forEach((boton) => {
+                        boton.addEventListener("click", () => {
+                            const cardBody = boton.closest(".card-body");
+                            const lugar = cardBody.querySelector(".card-title").textContent;
+                            const categoria = cardBody.querySelector(".categoria").textContent;
+                            const direccion = cardBody.querySelector(".direccion").textContent;
+                            verLugar(lugar, categoria, direccion);
+                        });
+                    });
+
+                    const btnCalificar = document.querySelectorAll(".btnCalificar");
+                    btnCalificar.forEach((boton) => {
+                        boton.addEventListener("click", () => {
+                            const cardBody = boton.closest(".card-body");
+                            const lugar = cardBody.querySelector(".card-title").textContent;
+                            calificarLugar(lugar);
+                        });
+                    });
+                };
             } else {
                 resultados.innerHTML = `<div class="busque">
                                             <div class="x">
@@ -180,111 +200,141 @@ function initMap() {
     busqueda.addEventListener('keyup', buscar);
 }
 
-/************************************** AGREGAR LUGAR ********************************************/
-
-btnMas = document.getElementById("btnMas");
-btnMas.addEventListener("click", () => {
-    window.location.href = "html/agregar.html";
-});
-
 /************************************** CALIFICAR LUGAR ********************************************/
 
-const btnCalificar = document.querySelectorAll(".btnCalificar");
+const DateTime = luxon.DateTime;
 
-const buscador = document.getElementById("buscador");
+class CalificacionLugar {
+    constructor(fecha, usuario, lugar, calificacion, resena) {
+        this.fecha = fecha;
+        this.usuario = usuario;
+        this.lugar = lugar;
+        this.calificacion = calificacion;
+        this.resena = resena;
+    }
+}
+const calificaciones = [];
 
-const circulos = document.getElementsByClassName("circulo");
-console.log(btnCalificar)
+function calificarLugar(lugarCalificado) {
+    const circulos = document.getElementsByClassName("circulo");
+    const buscador = document.getElementById("buscador");
 
-btnCalificar.forEach((boton) => {
-    boton.addEventListener("click", () => {
-        buscador.innerHTML = `
-                            <a href="index.html" class="volver"> <  Volver </a>
-                            <p> Califica al lugar entre 1 y 5 puntos: </p>
-                            <div id="calificacion">
-                                <i class="bi bi-circle-fill circulo" dadta-value="1"></i>
-                                <i class="bi bi-circle-fill circulo" dadta-value="2"></i>
-                                <i class="bi bi-circle-fill circulo" dadta-value="3"></i>
-                                <i class="bi bi-circle-fill circulo" dadta-value="4"></i>
-                                <i class="bi bi-circle-fill circulo" dadta-value="5"></i>
-                            </div>
-                            <div class="mb-3">
-                                <label for="resenaIngresada" class="form-label">Escribe tu reseña sobre el lugar:</label>
-                                <textarea class="form-control" id="resenaIngresada" placeholder="Reseña del lugar..." rows="3" required></textarea>
-                            </div>
-                            <button class="btn btn-primary text-center" id="calificacionIngresada">Enviar</button>
-                        `
+    buscador.innerHTML = `
+                        <a href="index.html" class="volver"> <  Volver </a>
+                        <p> Califica al lugar entre 1 y 5 puntos: </p>
+                        <div id="calificacion">
+                            <i class="bi bi-circle-fill circulo" dadta-value="1"></i>
+                            <i class="bi bi-circle-fill circulo" dadta-value="2"></i>
+                            <i class="bi bi-circle-fill circulo" dadta-value="3"></i>
+                            <i class="bi bi-circle-fill circulo" dadta-value="4"></i>
+                            <i class="bi bi-circle-fill circulo" dadta-value="5"></i>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resenaIngresada" class="form-label">Escribe tu reseña sobre el lugar:</label>
+                            <textarea class="form-control" id="resenaIngresada" placeholder="Reseña del lugar..." rows="3" required></textarea>
+                        </div>
+                        <button class="btn btn-primary text-center" id="calificacionIngresada">Enviar</button>
+                    `
 
-        let puntosIngresados = 1;
+    let puntosIngresados = 1;
 
-        function calificar(index) {
-            puntosIngresados = index + 1;
-            for (let i = 0; i < circulos.length; i++) {
-                if (i <= index) {
-                    circulos[i].classList.add("calificado");
-                } else {
-                    circulos[i].classList.remove("calificado");
-                }
+    function calificar(index) {
+        puntosIngresados = index + 1;
+        for (let i = 0; i < circulos.length; i++) {
+            if (i <= index) {
+                circulos[i].classList.add("calificado");
+            } else {
+                circulos[i].classList.remove("calificado");
             }
         }
+    }
 
-        for (let i = 0; i < circulos.length; i++) {
-            circulos[i].addEventListener("click", (function (index) {
-                return function () {
-                    calificar(index);
-                };
-            })(i));
-        }
+    for (let i = 0; i < circulos.length; i++) {
+        circulos[i].addEventListener("click", (function (index) {
+            return function () {
+                calificar(index);
+            };
+        })(i));
+    }
 
-        const resenaIngresada = document.getElementById("resenaIngresada");
-        const calificacionIngresada = document.getElementById("calificacionIngresada");
+    const resenaIngresada = document.getElementById("resenaIngresada");
+    const calificacionIngresada = document.getElementById("calificacionIngresada");
 
-        calificacionIngresada.addEventListener("click", () => {
-            let usuario = localStorage.getItem("usuario");
-            let lugarIngresado = document.getElementById("lugarIngresado");
-            calificacion = new CalificacionLugar(usuario, lugarIngresado, puntosIngresados, resenaIngresada.value);
-            calificaciones.push(calificacion);
-            console.log(calificacion)
-        })
-    })
-})
+    calificacionIngresada.addEventListener("click", () => {
+        // Emprolijamos los datos
+        let usuario = localStorage.getItem("usuario");
+        let fecha = new Date();
+        const fechaIngresada = fecha.toLocaleString(DateTime.DATETIME_FULL);
+        // Obtenemos las calificaciones existentes del localStorage
+        let calificaciones = localStorage.getItem("calificaciones");
+        calificaciones = calificaciones ? JSON.parse(calificaciones) : [];
+        // Pusheamos la calificación
+        let calificacion = new CalificacionLugar(fechaIngresada, usuario, lugarCalificado, puntosIngresados, resenaIngresada.value);
+        calificaciones.push(calificacion);
+        // Guardamos las calificaciones actualizadas en el localStorage
+        let calificacionesJSON = JSON.stringify(calificaciones);
+        localStorage.setItem("calificaciones", calificacionesJSON);
+        // Notificamos y volvemos al index
+        Toastify({
+            text: `¡Gracias por calificar a ${lugarCalificado}!`,
+            duration: 3000,
+            gravity: "bottom",
+            position: "left",
+            style: {
+                background: "blue",
+            }
+        }).showToast();
+        setTimeout(() => { window.location.href = "index.html"; }, 3000);
+    });
+};
 
 /************************************** RAMPAS ********************************************/
 
+const verRampas = document.getElementById("verRampas");
 
-fetch("rampas-caba.json")
-  .then(response => response.json())
-  .then(data => {
-    // Crea el mapa
-    const mapOptions = {
-      center: { lat: data[0].Y, lng: data[0].X },
-      zoom: 17,
-    };
-    const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+verRampas.addEventListener("click", () => {
+    fetch("json/rampas-caba.json")
+        .then(response => response.json())
+        .then(data => {
+            // Crea el mapa
+            const mapOptions = {
+                center: { lat: data[0].Y, lng: data[0].X },
+                zoom: 17,
+            };
+            let centro = new google.maps.LatLng(-34.618144, -58.390077);
+            const map = new google.maps.Map(document.getElementById('map'), { center: centro, zoom: 17 });
 
-    // Agrega los marcadores
-    data.forEach(rampa => {
-      const location = new google.maps.LatLng(rampa.Y, rampa.X);
+            // Agrega los marcadores
+            data.forEach(rampa => {
+                const location = new google.maps.LatLng(rampa.Y, rampa.X);
 
-      const marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        icon: {
-          url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-        },
-      });
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                    },
+                });
 
-      // Información del marcador
-      const infoWindow = new google.maps.InfoWindow({
-        content: `<strong>Rampa</strong><br><strong>Calle:</strong> ${rampa.CALLE}<br><strong>Altura:</strong> ${rampa.ALTURA}`,
-      });
+                // Información del marcador
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<strong>Rampa</strong><br><strong>Calle:</strong> ${rampa.CALLE}<br><strong>Altura:</strong> ${rampa.ALTURA}`,
+                });
 
-      // Muestra la información al hacer clic en el marcador
-      marker.addListener("click", () => {
-        infoWindow.open(map, marker);
-      });
+                // Muestra la información al hacer clic en el marcador
+                marker.addListener("click", () => {
+                    infoWindow.open(map, marker);
+                });
+            });
+        })
+        .catch(error => {
+            console.error("Error al obtener los datos:", error);
+        });
+    verRampas.innerHTML = `<button id="ocultarRampas" class="btnAzul">Ocultar Rampas</button>`
+    const ocultarRampas = document.getElementById("ocultarRampas");
+
+    ocultarRampas.addEventListener("click", () => {
+        window.location.href = "index.html"
     });
-  })
-  .catch(error => {
-    console.error("Error al obtener los datos:", error);
-  });
+
+})

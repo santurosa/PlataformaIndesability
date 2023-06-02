@@ -25,7 +25,9 @@
     <nav class="navbar">
       <div class="container-fluid">
         <a class="navbar-brand"><img src="img/Logotipo web.png" alt="Logo de Indesability"></a>
-        <button class="btnBlanco d-flex" type="buton" id="logIn">Iniciar sesión</button>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btnBlanco d-flex" type="buton" id="logIn">Iniciar sesión</button>
+      </div>
       </div>
     </nav>
   </header>
@@ -35,10 +37,10 @@
       <input id="busqueda" class="form-control me-2" type="search" placeholder="Busca un lugar, rampa o establecimiento..." aria-label="Search">
       <div id="resultados"></div>
     </div>
-
     <div class="col-xl-8 col-md-8 col-sm-12" id="map"></div>
-
-    <button title="Agregar lugar" id="btnMas">+</button>
+    <div class="botonera">
+      <button id="verRampas" class="btnAzul">Ver Rampas</button>
+    </div>
   </main>
 
   <footer>
@@ -51,6 +53,8 @@
       </div>
   </footer>
 
+  <!-- LUXON -->
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.3.0/build/global/luxon.min.js"></script>
   <!-- TOASTIFY -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <!-- SWEET ALERT -->
