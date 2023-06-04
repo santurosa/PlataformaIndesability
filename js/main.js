@@ -135,9 +135,9 @@ logIn.addEventListener("click", () => {
 
 /**************************************** CALIFICACIÓN LUGAR ******************************************/
 function promedioCalificacion(lugar) {
-    const calificacionesRecuperadas = localStorage.getItem("calificaciones");
-    const calificacionesRecupderadasJSON = JSON.parse(calificacionesRecuperadas);
-    const calificacionesLugar = calificacionesRecupderadasJSON.filter((calificacion) => calificacion.lugar === lugar);
+    let calificacionesRecuperadas = localStorage.getItem("calificaciones");
+    calificacionesRecuperadas = calificacionesRecuperadas ? JSON.parse(calificacionesRecuperadas) : [];
+    const calificacionesLugar = calificacionesRecuperadas.filter((calificacion) => calificacion.lugar === lugar);
     let suma = 0;
     if (calificacionesLugar.length > 0) {
         for (let i = 0; i < calificacionesLugar.length; i++) {
@@ -401,9 +401,9 @@ function calificarLugar(lugarCalificado) {
 
 /************************************** VER MÁS ********************************************/
 function verLugar(lugar, categoria, direccion, img) {
-    const calificacionesRecuperadas = localStorage.getItem("calificaciones");
-    const calificacionesRecupderadasJSON = JSON.parse(calificacionesRecuperadas);
-    const calificacionesLugar = calificacionesRecupderadasJSON.filter((calificacion) => calificacion.lugar === lugar);
+    let calificacionesRecuperadas = localStorage.getItem("calificaciones");
+    calificacionesRecuperadas = calificacionesRecuperadas ? JSON.parse(calificacionesRecuperadas) : [];
+    const calificacionesLugar = calificacionesRecuperadas.filter((calificacion) => calificacion.lugar === lugar);
     calificacionesLugar.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
     const contenedorTarjetas = document.createElement("div");
     if (calificacionesLugar.length > 0) {
@@ -413,7 +413,7 @@ function verLugar(lugar, categoria, direccion, img) {
             tarjeta.innerHTML = `
                 <div class="card-body">
                     <h5 class="card-title">${item.usuario}</h5>
-                    <p>${item.calificacion} <i class="bi bi-circle-fill" style= "color: blue;"></i></p>
+                    <p>${(item.calificacion).toFixed(1)} <i class="bi bi-circle-fill" style= "color: blue;"></i></p>
                     <p>${item.fecha}</p>
                     <p class="card-text">${item.resena}.</p>
                 </div>
