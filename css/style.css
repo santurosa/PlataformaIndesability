@@ -8,53 +8,28 @@ header {
     text-align: center;
     font-family: "Noto Sans JP", sans-serif;
     font-size: 700;
-}
-
-.btnBlanco {
-    padding: 9px 25px;
-    background-color: #fff;
-    color: blue;
-    border: none;
-    border-radius: 50px;
-    font-family: "Noto Sans JP", sans-serif;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-#logIn {
-    padding: 9px 25px;
-    background-color: #fff;
-    color: blue;
-    border: none;
-    border-radius: 50px;
-    font-family: "Noto Sans JP", sans-serif;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.btnBlanco:hover {
-    background-color: rgb(148, 148, 148);
-    transition: all ease 0.3s;
+    height: 10%;
 }
 
 /* MAIN */
 
-main{
+main {
     margin-right: 0 !important;
+    height: 90%;
 }
 
 /* BUSCADOR */
 
-#buscador{
+#buscador {
     padding: 1.5% !important;
-    height: 900px;
+    height: 90%;
 }
 
-#busqueda{
+#busqueda {
     margin-bottom: 3%;
 }
 
-#resultados{
+#resultados {
     height: 750px;
     overflow-y: auto;
 }
@@ -76,7 +51,7 @@ main{
     object-fit: cover;
 }
 
-.busque{
+.busque {
     padding-left: 2.5%;
     padding-right: 2.5%;
     padding-top: 50%;
@@ -88,24 +63,62 @@ main{
     font-family: "Noto Sans JP", sans-serif;
     font-weight: 400;
 }
+.ningunaCalificacion{
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+}
 
-.lupa{
+.triste{
+    padding-bottom: 2.5%;
+}
+
+.lupa {
     padding-bottom: 20%;
     color: rgb(88, 88, 88);
 }
 
-.x{
+.x {
     padding-bottom: 5%;
     color: red;
 }
 
-/* BOTON PARA AGREGAR */
+.imgVerMas{
+    display: inline;
+    width: 100%;
+    max-height: 200px;
+}
+/* BOTONES */
 
-.btnAzul{
-    display: inline-block;
+.btnBlanco {
+    padding: 9px 25px;
+    background-color: #fff;
+    color: blue;
+    border: none;
+    border-radius: 50px;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.btnBlanco:hover {
+    background-color: rgb(148, 148, 148);
+    transition: all ease 0.3s;
+}
+
+.btnAzul {
+    display: inline;
     position: relative;
-    bottom: 20px;
-    left: 34%;
+
+    width: auto !important;
+    margin-bottom: 0 !important;
     padding: 9px 25px;
     background-color: blue;
     color: #fff;
@@ -114,9 +127,13 @@ main{
     font-family: "Noto Sans JP", sans-serif;
     font-weight: 700;
     text-decoration: none;
-
 }
 
+.overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 2%;
+}
 
 /* FOOTER */
 footer {
@@ -125,12 +142,13 @@ footer {
     padding-top: 0.5%;
     padding-bottom: 0.2%;
     font-family: "Noto Sans JP", sans-serif;
+    height: 10%;
 }
 
 .container {
     display: flex;
     justify-content: center;
-    flex-direction: column;    
+    flex-direction: column;
     align-items: center;
 }
 
@@ -141,7 +159,7 @@ footer {
 
 /* CALIFICACIÓN */
 
-.volver{
+.volver {
     text-decoration: none;
     font-family: "Noto Sans JP", sans-serif;
     font-weight: bold;
@@ -149,11 +167,11 @@ footer {
     color: blue;
 }
 
-#calificacion{
+#calificacion {
     padding-top: 5%;
     padding-bottom: 5%;
     display: flex;
-    justify-content: center;  
+    justify-content: center;
     align-items: center;
 }
 
@@ -166,12 +184,43 @@ footer {
     font-size: 40px;
     transition: color .3s;
 }
-  
-.circulo:hover{
+
+.circulo:hover {
     color: blue;
 }
 
 .circulo.calificado {
     color: blue;
- }
-  
+}
+
+/* perfil.html */
+
+.mainPerfil{
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+.bienvenida{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 2.5%;
+}
+
+.ningunaCalificacionPerfil{
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 400;
+}
+
+.tristePerfil{
+    padding-bottom: 2.5%;
+}

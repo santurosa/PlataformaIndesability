@@ -24,33 +24,27 @@
   <header>
     <nav class="navbar">
       <div class="container-fluid">
-        <a class="navbar-brand"><img src="img/Logotipo web.png" alt="Logo de Indesability"></a>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="navbar-brand"><img src="img/Logotipo web.png" alt="Logo de Indesability" width="70%" height="50%"></a>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="botonCuenta">
           <button class="btnBlanco d-flex" type="buton" id="logIn">Iniciar sesión</button>
-      </div>
+          <button class="btnBlanco d-flex" type="buton" id="registrarse">Registrarse</button>
+        </div>
       </div>
     </nav>
   </header>
 
-  <main class="row">
+  <main class="row mb-0">
     <div id="buscador" class="buscador col-xl-4 col-md-4 col-sm-12">
-      <input id="busqueda" class="form-control me-2" type="search" placeholder="Busca un lugar, rampa o establecimiento..." aria-label="Search">
+      <input id="busqueda" class="form-control me-2" type="search" placeholder="Busca un lugar o establecimiento..." aria-label="Search">
       <div id="resultados"></div>
     </div>
     <div class="col-xl-8 col-md-8 col-sm-12" id="map"></div>
-    <div class="botonera">
-      <button id="verRampas" class="btnAzul">Ver Rampas</button>
-    </div>
   </main>
 
   <footer>
     <div class="container">
-      <div>
-        <img src="img/Logotipo web.png" alt="Logo">
-      </div>
-      <div class="copyright">
-        <p>&copy; Indesability 2023. Todos los derechos reservados.</p>
-      </div>
+      <div><img src="img/Logotipo web.png" alt="Logo"></div>
+      <div class="copyright"><p>&copy; Indesability 2023. Todos los derechos reservados.</p></div>
   </footer>
 
   <!-- LUXON -->
@@ -62,7 +56,7 @@
   <!-- BS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"crossorigin="anonymous"></script>
   <!-- JS -->
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
   <!-- API GOOGLE MAPS -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBB3EGmvdkF7v6nfmqnc_E_h32Il7bm_40&libraries=places&callback=initMap" async defer></script>
 </body>
