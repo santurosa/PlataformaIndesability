@@ -47,7 +47,6 @@ registrarse.addEventListener("click", () => {
             let nuevoUsuario = new Usuario(usuario, nombre, apellido, email, password);
             usuarios.push(nuevoUsuario);
             usuariosJSON = JSON.stringify(usuarios);
-            console.log(usuariosJSON)
             localStorage.setItem("usuarios", usuariosJSON);
             localStorage.setItem("usuario", usuario);
         }
