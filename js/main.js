@@ -61,12 +61,12 @@ registrarse.addEventListener("click", () => {
         }).showToast();
     })
 })
-/************************************* INICIAR SECCION ***************************************/
+/************************************* INICIAR SESIÓN ***************************************/
 
 const logIn = document.getElementById("logIn");
 const botonCuenta = document.getElementById("botonCuenta");
 
-// Iniciar sección mediante el LocalStorage
+// Iniciar sesión mediante el LocalStorage
 function sesionStorage() {
     let verificacion = localStorage.getItem("usuario");
     const usuariosJSON = localStorage.getItem("usuarios");
@@ -81,13 +81,13 @@ function sesionStorage() {
 
 sesionStorage();
 
-// Iniciar sección mediante el botón
+// Iniciar sesión mediante el botón
 logIn.addEventListener("click", () => {
     Swal.fire({
         imageUrl: "img/Logotipo_web_azul.png",
         html: ` <input type="text" id="usuario" class="swal2-input" placeholder="Usuario">
                 <input type="password" id="password" class="swal2-input" placeholder="Contraseña">`,
-        confirmButtonText: "Iniciar sección",
+        confirmButtonText: "Iniciar sesión",
         confirmButtonColor: "blue",
         showCancelButton: true,
         cancelButtonText: "Cancelar",
