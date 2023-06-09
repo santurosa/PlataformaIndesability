@@ -1,4 +1,4 @@
-/* BOTÓN CERRAR SECCIÓN */
+/* BOTÓN CERRAR SESIÓN */
 
 const cerrarSesion = document.getElementById("cerrarSesion");
 cerrarSesion.addEventListener("click", () => {
