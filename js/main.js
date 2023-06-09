@@ -283,7 +283,7 @@ function initMap() {
                                 calificarLugar(lugar);
                             } else{
                                 Swal.fire({
-                                    text: "Tenes que iniciar sección o registrarte para calificar lugares.", 
+                                    text: "Tenes que iniciar sesión o registrarte para calificar lugares.", 
                                     confirmButtonText: "Aceptar",
                                     confirmButtonColor: "blue",
                                 })
