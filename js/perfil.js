@@ -1,10 +1,10 @@
 /* BOTÓN CERRAR SECCIÓN */
 
-const cerrarSeccion = document.getElementById("cerrarSeccion");
-cerrarSeccion.addEventListener("click", () => {
+const cerrarSesion = document.getElementById("cerrarSesion");
+cerrarSesion.addEventListener("click", () => {
     localStorage.removeItem("usuario");
     Toastify({
-        text: `¡Hasta luego! Cerrando sección...`,
+        text: `¡Hasta luego! Cerrando sesión...`,
         duration: 3000,
         gravity: "bottom",
         position: "right",
